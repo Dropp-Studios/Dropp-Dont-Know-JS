@@ -469,18 +469,15 @@ The *Closure Exercise (PART 2)* `toggle(..)` can be solved like this:
 
 ```js
 function toggle(...vals) {
-    var unset = {};
-    var cur = unset;
+    let itr = 0; // Iterator to track the current position in the values list
 
-    return function next(){
-        // save previous value back at
-        // the end of the list
-        if (cur != unset) {
-            vals.push(cur);
-        }
-        cur = vals.shift();
-        return cur;
-    };
+    return function() {
+        // If iterator exceeds or reaches the end of the list, reset to 0
+        if (itr >= vals.length) itr = 0;
+
+        // Return the current value and increment the iterator for next call
+        return vals[itr++];
+    }
 }
 
 var hello = toggle("hello");
